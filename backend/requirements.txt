@@ -1,5 +1,5 @@
 Flask==2.0.2
-snscrape==0.4.2.20211215
+snscrape
 redis==4.1.0
 simplejson==3.17.6
 flask-cors==3.0.10
