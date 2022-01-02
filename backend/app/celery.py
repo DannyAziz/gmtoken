@@ -13,9 +13,9 @@ sentry_sdk.init(
     environment=os.environ['ENV'],
 )
 
-celeryApp = Celery('tasks', broker=f'redis://{os.environ["REDIS_HOST"]}:6379/0')
+celeryApp = Celery('tasks', broker=f'redis://{os.environ["REDIS_HOST"]}:{os.environ["REDIS_PORT"]}/0')
 
-r = redis.Redis(host=os.environ["REDIS_HOST"], port=6379, db=0)
+r = redis.Redis(host=os.environ["REDIS_HOST"], port=os.environ["REDIS_PORT"], db=0)
 
 @celeryApp.task(autoretry_for=(Exception,))
 def get_number_of_gms(address, username):

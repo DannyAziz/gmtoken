@@ -12,7 +12,7 @@ from sentry_sdk.integrations.flask import FlaskIntegration
 
 from app.celery import get_number_of_gms
 
-r = redis.Redis(host=os.environ["REDIS_HOST"], port=6379, db=0)
+r = redis.Redis(host=os.environ["REDIS_HOST"], port=os.environ["REDIS_PORT"], db=0)
 
 sentry_sdk.init(
     dsn=os.environ['SENTRY_DSN'],
