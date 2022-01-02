@@ -11,7 +11,13 @@ const Footer = () => {
           Danny Aziz
         </a>
       </p>
-      <a className="underline">Github</a>
+      <a
+        href="https://github.com/DannyAziz/gmtoken"
+        target="_blank"
+        className="underline"
+      >
+        Github
+      </a>
     </div>
   );
 };
