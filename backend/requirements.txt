@@ -1,0 +1,8 @@
+Flask==2.0.2
+snscrape==0.4.2.20211215
+redis==4.1.0
+simplejson==3.17.6
+flask-cors==3.0.10
+celery==5.2.3
+sentry-sdk==1.5.1
+blinker==1.4
