@@ -8,7 +8,7 @@ const Header = () => {
 
   const onClick = () => {
     if (connected) {
-      alert("Do something");
+      disconnectWallet();
     } else {
       disconnectWallet();
       connectWallet();
