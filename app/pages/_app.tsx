@@ -1,11 +1,15 @@
 import "../styles/globals.css";
 
-import { Provider, NETWORKS, CHAIN_ID_TO_NETWORK } from "@web3-ui/hooks";
+import { Provider, NETWORKS } from "@web3-ui/hooks";
 
 function MyApp({ Component, pageProps }) {
   return (
     <Provider
-      network={NETWORKS.rinkeby}
+      network={
+        process.env.NODE_ENV === "production"
+          ? NETWORKS.mainnet
+          : NETWORKS.rinkeby
+      }
       infuraId={process.env.NEXT_PUBLIC_INFURA_ID}
     >
       <Component {...pageProps} />
