@@ -3,12 +3,14 @@ import Button from "components/Button";
 import { useWallet } from "@web3-ui/hooks";
 
 const Header = () => {
-  const { connectWallet, connection, connected } = useWallet();
+  const { connectWallet, disconnectWallet, connection, connected } =
+    useWallet();
 
   const onClick = () => {
     if (connected) {
       alert("Do something");
     } else {
+      disconnectWallet();
       connectWallet();
     }
   };
