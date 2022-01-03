@@ -34,6 +34,7 @@ def check_tweet(tweet_id, address):
         return
     
     r.set(address, json.dumps({"username": tweet.user.username}))
+    get_number_of_gms.delay(address, tweet.user.username)
 
 @celeryApp.task(autoretry_for=(Exception,))
 def get_number_of_gms(address, username):
