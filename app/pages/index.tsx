@@ -121,8 +121,20 @@ export default function Home() {
       `${process.env.NEXT_PUBLIC_API_URL}/wallet/${connection.userAddress}`
     );
     let data = await response.json();
+    console.log(data);
     if (data.error) {
       setStage(0);
+      if (data.error === "No tweet found") {
+        alert(
+          "No tweet was found from the URL you provided. Please try again."
+        );
+      } else if (data.error === "No addresses found") {
+        alert("No addresses were found in the tweet. Please try again.");
+      } else if (data.error === "Address not matching") {
+        alert(
+          "The address in the tweet does not match your wallet address. Please try again."
+        );
+      }
     } else if (data.gm) {
       setStage(2);
       setGmCount(data.gm);

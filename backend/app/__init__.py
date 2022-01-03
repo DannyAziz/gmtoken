@@ -1,6 +1,5 @@
 import os
 import redis
-import re
 import simplejson as json
 import sentry_sdk
 import snscrape.modules.twitter as sntwitter
@@ -10,7 +9,7 @@ from flask_cors import CORS
 
 from sentry_sdk.integrations.flask import FlaskIntegration
 
-from app.celery import get_number_of_gms
+from app.celery import get_number_of_gms, check_tweet
 
 r = redis.Redis(host=os.environ["REDIS_HOST"], port=os.environ["REDIS_PORT"], db=0)
 
@@ -42,24 +41,15 @@ def check_tweet_url():
     url = data['url']
     address = data['address']
     raw_data = r.get(address)
-    if raw_data is not None:
+    if raw_data is not None and not "error" in json.loads(raw_data):
         return json.dumps({"error": "Wallet address already in database"}), 400
     if "twitter.com" not in url:
         return json.dumps({"error": "Not a twitter url"}), 400
     split_url = url.split("status/")
     if len(split_url) < 2:
         return json.dumps({"error": "Not a twitter url"}), 400
-    tweet_id = split_url[1]
-    tweet = list(sntwitter.TwitterTweetScraper(tweet_id, sntwitter.TwitterTweetScraperMode.SINGLE).get_items())[0]
-    if not tweet:
-        return json.dumps({"error": "Tweet not found"}), 400
-    addresses = re.findall('0x[a-fA-F0-9]{40}', tweet.content)
-    if len(addresses) == 0:
-        return json.dumps({"error": "No addresses found"}), 400
-    tweet_address = addresses[0]
-    if tweet_address != address:
-        return json.dumps({"error": "Address not matching"}), 400
     
-    r.set(address, json.dumps({"username": tweet.user.username}))
-    get_number_of_gms.delay(address, tweet.user.username)
+    tweet_id = split_url[1]
+    check_tweet.delay(tweet_id, address)
+
     return json.dumps({"ok": True})
