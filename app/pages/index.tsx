@@ -234,6 +234,21 @@ export default function Home() {
             </a>{" "}
             - The rest is up for grabs
           </span>
+          <span>
+            The contract address is{" "}
+            <a
+              className="underline"
+              target="_blank"
+              href="https://etherscan.io/address/0xa41a0ab19c957f7ab595348972057d700a38b7f0"
+            >
+              0xa41a0ab19c957f7ab595348972057d700a38b7f0
+            </a>{" "}
+            and website URL is{" "}
+            <a className="underline" href="https://gm.dannyaziz.com">
+              https://gm.dannyaziz.com
+            </a>{" "}
+            - Please double check to avoid scams
+          </span>
         </Section>
 
         {!connected && (
