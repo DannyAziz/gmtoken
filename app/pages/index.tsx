@@ -78,7 +78,7 @@ const TwitterConnectSection = ({ setLoading, loading, onUrlPosted }) => {
         type="green"
         onClick={() =>
           window.open(
-            `https://twitter.com/intent/tweet?text=I'm connecting my Twitter account with my wallet ${connection.userAddress} on https://gmtoken.com to claim my $gm`,
+            `https://twitter.com/intent/tweet?text=I'm connecting my Twitter account with my wallet ${connection.userAddress} on https://gm.dannyaziz.com to claim my $gm`,
             "_blank",
             "location=yes,height=570,width=520,scrollbars=yes,status=yes"
           )
