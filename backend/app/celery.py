@@ -16,6 +16,8 @@ sentry_sdk.init(
 
 celeryApp = Celery('tasks', broker=f'redis://{os.environ["REDIS_HOST"]}:{os.environ["REDIS_PORT"]}/0')
 
+celeryApp.acks_late = True
+
 r = redis.Redis(host=os.environ["REDIS_HOST"], port=os.environ["REDIS_PORT"], db=0)
 
 @celeryApp.task(autoretry_for=(Exception,))
